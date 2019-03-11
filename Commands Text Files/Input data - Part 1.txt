@@ -1,0 +1,52 @@
+Citizens Input:
+{
+  "$class": "academic.records.network.Citizen",
+  "id": "1091935815",
+  "firstName": "abdullah",
+  "middleName": "waleed",
+  "lastName": "almubark",
+  "gender": "Male",
+  "birthDate": "2019-02-24T00:00:00.000Z",
+  "records": []
+}
+
+{
+  "$class": "academic.records.network.Citizen",
+  "id": "1080032142",
+  "firstName": "maan",
+  "middleName": "khalid",
+  "lastName": "alklewi",
+  "gender": "Male",
+  "birthDate": "2000-02-24T00:00:00.000Z",
+  "records": []
+}
+
+{
+  "$class": "academic.records.network.Citizen",
+  "id": "1114912344",
+  "firstName": "noora",
+  "middleName": "saad",
+  "lastName": "alaqeel",
+  "gender": "Female",
+  "birthDate": "1980-02-24T00:00:00.000Z",
+  "records": []
+}
+
+---------------------------------------------------------------------------------------
+Issuers Input:
+
+{
+  "$class": "academic.records.network.Issuer",
+  "crNumber": "UNPU1982",
+  "issuerName": "King Saud University",
+  "type": "University"
+}
+
+{
+  "$class": "academic.records.network.Issuer",
+  "crNumber": "UNPR1999",
+  "issuerName": "Prince Sultan University",
+  "type": "University"
+}
+
+------------------------------------------------------------------------------------

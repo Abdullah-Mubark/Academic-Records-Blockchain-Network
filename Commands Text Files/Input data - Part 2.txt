@@ -1,0 +1,63 @@
+Records adding input:
+
+{
+  "$class": "academic.records.network.AddRecord",
+  "person": "resource:academic.records.network.Citizen#1091935815",
+  "studentId": "214110377",
+  "degree": "Bachelor in Software engineering",
+  "status": "Graduated",
+  "gpa": "2.5/4",
+  "graduationDate": "2019-02-24T10:05:32.845Z",
+  "courses": [
+    {
+      "$class": "academic.records.network.Course",
+      "courseName": "Calculas",
+      "courseCode": "MATH123",
+      "courseGrade": "B+",
+      "courseHours": 3
+    },
+    {
+      "$class": "academic.records.network.Course",
+      "courseName": "Arabic litrtire",
+      "courseCode": "Arab332",
+      "courseGrade": "C-",
+      "courseHours": 3
+    }
+  ]
+}
+-------------------------------------------------------
+
+{
+  "$class": "academic.records.network.AddRecord",
+  "person": "resource:academic.records.network.Citizen#1091935815",
+  "studentId": "144234565",
+  "degree": "Master in Software engineering",
+  "status": "Regular",
+  "gpa": "3.1/5",
+  "courses": [
+    {
+      "$class": "academic.records.network.Course",
+      "courseName": "Machin Learning",
+      "courseCode": "CS511",
+      "courseGrade": "A+",
+      "courseHours": 4
+    },
+    {
+      "$class": "academic.records.network.Course",
+      "courseName": "Block Chain",
+      "courseCode": "CS534",
+      "courseGrade": "A",
+      "courseHours": 3
+    }
+  ]
+}
+-------------------------------------------------------
+
+{
+  "$class": "academic.records.network.AddRecord",
+  "person": "resource:academic.records.network.Citizen#1080032142",
+  "studentId": "214110654",
+  "degree": "Bachelor in Software engineering",
+  "status": "Graduated",
+  "gpa": "3.5/4"
+}

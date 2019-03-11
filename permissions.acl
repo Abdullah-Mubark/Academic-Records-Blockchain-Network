@@ -1,0 +1,101 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * access control list.
+ */
+rule IssuerFullAcessOnItsRecords {
+    description: "Issuer can create, remove, read or update or remove any record issued under its name."
+    participant(p): "academic.records.network.Issuer"
+    operation: ALL
+    resource(r): "academic.records.network.AcademicRecord"
+  	condition: (p.getIdentifier() == r.issuer.getIdentifier())
+    action: ALLOW
+}
+
+rule IssuerCanReadAndUpdateCitizen {
+    description: "Issuer can read and update any citizen informaton."
+    participant: "academic.records.network.Issuer"
+    operation: READ,UPDATE
+    resource: "academic.records.network.Citizen"
+    action: ALLOW
+}
+
+rule IssuerCanInvokeAddRecord {
+    description: "Issuer is allowed to invoke addrecord smart contract."
+    participant: "academic.records.network.Issuer"
+    operation: CREATE
+    resource: "academic.records.network.AddRecord"
+    action: ALLOW
+}
+
+rule IssuerCanInvokeEditRecord {
+    description: "Issuer is allowed to invoke addrecord smart contract."
+    participant(p): "academic.records.network.Issuer"
+    operation: CREATE
+    resource(t): "academic.records.network.RemoveRecord"
+    condition: (t.record.issuer.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+}
+
+rule IssuerCanInvokeRemoveRecord {
+    description: "Issuer is allowed to invoke addrecord smart contract."
+    participant(p): "academic.records.network.Issuer"
+    operation: CREATE
+    resource(t): "academic.records.network.EditRecord"
+    condition: (t.record.issuer.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+}
+
+rule IssuerFullAcessOnItsInfo {
+    description: "Issuer can create, remove, read or update or remove any record issued under its name."
+    participant(p): "academic.records.network.Issuer"
+    operation: ALL
+    resource(r): "academic.records.network.Issuer"
+  	condition: (p.getIdentifier() == r.getIdentifier())
+    action: ALLOW
+}
+
+rule IssuerAccessNetwork{
+  description: "Issuers should be able to access the network and write to it"
+  participant: "academic.records.network.Issuer"
+  operation: CREATE,READ
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule IssuerSeeOwnHistoryOnly{
+  description: "Issuers should be able to see the history of their own transactions only"
+  participant(t): "academic.records.network.Issuer"
+  operation: READ
+  resource(v): "org.hyperledger.composer.system.HistorianRecord"
+  condition: (v.participantInvoking.getIdentifier() != t.getIdentifier())
+  action: DENY
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

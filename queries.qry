@@ -1,0 +1,28 @@
+query selectAllRecords {
+  description: "Select all academic records in the network."
+  statement:
+     SELECT academic.records.network.AcademicRecord
+}
+
+query selectCRecordByCitizenId {
+  description: "Select academic record based on national id."
+  statement:
+      SELECT academic.records.network.AcademicRecord
+          WHERE (student.id==_$id)
+}
+
+query selectCRecordByIssuerId {
+  description: "Select academic record based on issuer cr number."
+  statement:
+      SELECT academic.records.network.AcademicRecord
+          WHERE (issuer.crNumber==_$crNumber)
+}
+
+
+query selectCRecordByCitizenIdAndIssuerId {
+  description: "Select academic record based on national id and issuer cr number."
+  statement:
+      SELECT academic.records.network.AcademicRecord
+          WHERE ((student.id==_$id) AND (issuer.crNumber==_$crNumber)) 
+}
+

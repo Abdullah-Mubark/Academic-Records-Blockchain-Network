@@ -1,0 +1,102 @@
+{
+    "name": "academic-records-network",
+    "x-type": "hlfv1",
+    "version": "1.0.0",
+    "x-commitTimeout": 300,
+    "client": {
+        "organization": "ELM",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300",
+                    "eventHub": "300",
+                    "eventReg": "300"
+                },
+                "orderer": "300"
+            }
+        }
+    },
+    "channels": {
+        "composerchannel": {
+            "orderers": [
+                "orderer.com"
+            ],
+            "peers": {
+                "peer.elm.com.sa": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "eventSource": true
+                },
+                "peer.psu.com.sa": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "eventSource": true
+                },
+                "peer.ksu.com.sa": {
+                    "endorsingPeer": true,
+                    "chaincodeQuery": true,
+                    "eventSource": true
+                }
+            }
+        }
+    },
+    "organizations": {
+        "ELM": {
+            "mspid": "elmMSP",
+            "peers": [
+                "peer.elm.com.sa"
+            ],
+            "certificateAuthorities": [
+                "ca.elm.com.sa"
+            ]
+        },
+        "PSU": {
+            "mspid": "psuMSP",
+            "peers": [
+                "peer.psu.com.sa"
+            ],
+            "certificateAuthorities": [
+                "ca.psu.com.sa"
+            ]
+        },
+        "KSU": {
+            "mspid": "ksuMSP",
+            "peers": [
+                "peer.ksu.com.sa"
+            ],
+            "certificateAuthorities": [
+                "ca.ksu.com.sa"
+            ]
+        }
+    },
+    "orderers": {
+        "orderer.com": {
+            "url": "grpc://localhost:7050"
+        }
+    },
+    "peers": {
+        "peer.elm.com.sa": {
+            "url": "grpc://localhost:7051"
+        },
+        "peer.psu.com.sa": {
+            "url": "grpc://localhost:7151"
+        },
+        "peer.ksu.com.sa": {
+            "url": "grpc://localhost:7251"
+        }
+    },
+    "certificateAuthorities": {
+        "ca.elm.com.sa": {
+            "url": "http://localhost:7054",
+            "caName": "ca.elm.com.sa"
+        },
+        "ca.psu.com.sa": {
+            "url": "http://localhost:7154",
+            "caName": "ca.psu.com.sa"
+        },
+        "ca.ksu.com.sa": {
+            "url": "http://localhost:7254",
+            "caName": "ca.ksu.com.sa"
+        }
+    }
+}
