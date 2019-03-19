@@ -3,7 +3,7 @@
     "composer": "^0.20.7"
   },
   "name": "academic-records",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "The goal of this network is to create a single shared system containing all citizens&#39; academic records while providing a 100% availability and immune to data loss.",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/academic-records.bna",

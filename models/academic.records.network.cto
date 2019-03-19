@@ -12,9 +12,6 @@
  * limitations under the License.
  */
 
-/**
- * Write your model definitions here
- */
 
 namespace academic.records.network
 
@@ -23,8 +20,8 @@ participant Citizen identified by id {
   o String firstName
   o String middleName
   o String lastName
-  o String gender
-  o DateTime birthDate
+  o String gender optional
+  o DateTime birthDate optional
   --> AcademicRecord[] records
 }
 
@@ -38,9 +35,9 @@ asset AcademicRecord identified by recordId {
   o String recordId
   o String studentId
   o String degree
-  o String status
   o String gpa 
-  o DateTime graduationDate optional
+  o DateTime enrollmentDate
+  o DateTime graduationDate
   o Course[] courses optional
   --> Citizen student
   --> Issuer issuer
@@ -66,9 +63,9 @@ transaction AddRecord {
   --> Citizen person
   o String studentId
   o String degree
-  o String status
   o String gpa
-  o DateTime graduationDate optional
+  o DateTime enrollmentDate
+  o DateTime graduationDate
   o Course[] courses optional
 }
 
@@ -79,10 +76,19 @@ transaction RemoveRecord {
 transaction EditRecord {
   --> AcademicRecord record
   o String degree optional
-  o String status optional
   o String gpa optional
+  o DateTime enrollmentDate optional
   o DateTime graduationDate optional
   o Course[] courses optional
 }
 
-
+transaction AddRecordByAdmin{
+  --> Issuer issuer
+  --> Citizen person
+  o String studentId
+  o String degree
+  o String gpa
+  o DateTime enrollmentDate
+  o DateTime graduationDate
+  o Course[] courses optional
+}
