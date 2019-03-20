@@ -37,14 +37,14 @@ Issuers Input:
 
 {
   "$class": "academic.records.network.Issuer",
-  "crNumber": "UNPU1982",
+  "crNumber": "7000000000",
   "issuerName": "King Saud University",
   "type": "University"
 }
 
 {
   "$class": "academic.records.network.Issuer",
-  "crNumber": "UNPR1999",
+  "crNumber": "7000000001",
   "issuerName": "Prince Sultan University",
   "type": "University"
 }

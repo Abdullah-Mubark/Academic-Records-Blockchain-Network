@@ -57,9 +57,9 @@
 
             
               <div class="form-group text-left">
-                <label for="status">status</label>
+                <label for="gpa">gpa</label>
                 
-                  <input formControlName="status" type="text" class="form-control">
+                  <input formControlName="gpa" type="text" class="form-control">
                 
               </div>
             
@@ -67,9 +67,9 @@
 
             
               <div class="form-group text-left">
-                <label for="gpa">gpa</label>
+                <label for="enrollmentDate">enrollmentDate</label>
                 
-                  <input formControlName="gpa" type="text" class="form-control">
+                  <input formControlName="enrollmentDate" type="text" class="form-control">
                 
               </div>
             
@@ -169,19 +169,19 @@
             </div>
           
             <div class="form-group text-left">
-              <label for="status">status</label>
+              <label for="gpa">gpa</label>
               
               
-                <input [ngModel]="status"formControlName="status" type="text" class="form-control">
+                <input [ngModel]="gpa"formControlName="gpa" type="text" class="form-control">
               
 
             </div>
           
             <div class="form-group text-left">
-              <label for="gpa">gpa</label>
+              <label for="enrollmentDate">enrollmentDate</label>
               
               
-                <input [ngModel]="gpa"formControlName="gpa" type="text" class="form-control">
+                <input [ngModel]="enrollmentDate"formControlName="enrollmentDate" type="text" class="form-control">
               
 
             </div>
@@ -305,9 +305,9 @@
             
                 <th class="info">degree</th>
             
-                <th class="info">status</th>
-            
                 <th class="info">gpa</th>
+            
+                <th class="info">enrollmentDate</th>
             
                 <th class="info">graduationDate</th>
             
@@ -330,9 +330,9 @@
             
                 <td class="asset-properties">{{asset.degree}}</td>
             
-                <td class="asset-properties">{{asset.status}}</td>
-            
                 <td class="asset-properties">{{asset.gpa}}</td>
+            
+                <td class="asset-properties">{{asset.enrollmentDate}}</td>
             
                 <td class="asset-properties">{{asset.graduationDate}}</td>
             

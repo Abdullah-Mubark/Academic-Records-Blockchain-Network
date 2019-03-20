@@ -29,6 +29,7 @@ import { IssuerComponent } from './Issuer/Issuer.component';
 import { AddRecordComponent } from './AddRecord/AddRecord.component';
 import { RemoveRecordComponent } from './RemoveRecord/RemoveRecord.component';
 import { EditRecordComponent } from './EditRecord/EditRecord.component';
+import { AddRecordByAdminComponent } from './AddRecordByAdmin/AddRecordByAdmin.component';
 
   @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { EditRecordComponent } from './EditRecord/EditRecord.component';
     IssuerComponent,
     AddRecordComponent,
     RemoveRecordComponent,
-    EditRecordComponent
+    EditRecordComponent,
+    AddRecordByAdminComponent
   ],
   imports: [
     BrowserModule,

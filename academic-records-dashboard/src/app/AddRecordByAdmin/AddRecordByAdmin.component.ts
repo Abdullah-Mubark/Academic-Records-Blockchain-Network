@@ -14,45 +14,48 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AcademicRecordService } from './AcademicRecord.service';
+import { AddRecordByAdminService } from './AddRecordByAdmin.service';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-  selector: 'app-academicrecord',
-  templateUrl: './AcademicRecord.component.html',
-  styleUrls: ['./AcademicRecord.component.css'],
-  providers: [AcademicRecordService]
+  selector: 'app-addrecordbyadmin',
+  templateUrl: './AddRecordByAdmin.component.html',
+  styleUrls: ['./AddRecordByAdmin.component.css'],
+  providers: [AddRecordByAdminService]
 })
-export class AcademicRecordComponent implements OnInit {
+export class AddRecordByAdminComponent implements OnInit {
 
   myForm: FormGroup;
 
-  private allAssets;
-  private asset;
+  private allTransactions;
+  private Transaction;
   private currentId;
   private errorMessage;
 
-  recordId = new FormControl('', Validators.required);
+  issuer = new FormControl('', Validators.required);
+  person = new FormControl('', Validators.required);
   studentId = new FormControl('', Validators.required);
   degree = new FormControl('', Validators.required);
-  status = new FormControl('', Validators.required);
   gpa = new FormControl('', Validators.required);
+  enrollmentDate = new FormControl('', Validators.required);
   graduationDate = new FormControl('', Validators.required);
   courses = new FormControl('', Validators.required);
-  student = new FormControl('', Validators.required);
-  issuer = new FormControl('', Validators.required);
+  transactionId = new FormControl('', Validators.required);
+  timestamp = new FormControl('', Validators.required);
 
-  constructor(public serviceAcademicRecord: AcademicRecordService, fb: FormBuilder) {
+
+  constructor(private serviceAddRecordByAdmin: AddRecordByAdminService, fb: FormBuilder) {
     this.myForm = fb.group({
-      recordId: this.recordId,
+      issuer: this.issuer,
+      person: this.person,
       studentId: this.studentId,
       degree: this.degree,
-      status: this.status,
       gpa: this.gpa,
+      enrollmentDate: this.enrollmentDate,
       graduationDate: this.graduationDate,
       courses: this.courses,
-      student: this.student,
-      issuer: this.issuer
+      transactionId: this.transactionId,
+      timestamp: this.timestamp
     });
   };
 
@@ -62,14 +65,14 @@ export class AcademicRecordComponent implements OnInit {
 
   loadAll(): Promise<any> {
     const tempList = [];
-    return this.serviceAcademicRecord.getAll()
+    return this.serviceAddRecordByAdmin.getAll()
     .toPromise()
     .then((result) => {
       this.errorMessage = null;
-      result.forEach(asset => {
-        tempList.push(asset);
+      result.forEach(transaction => {
+        tempList.push(transaction);
       });
-      this.allAssets = tempList;
+      this.allTransactions = tempList;
     })
     .catch((error) => {
       if (error === 'Server error') {
@@ -84,7 +87,7 @@ export class AcademicRecordComponent implements OnInit {
 
 	/**
    * Event handler for changing the checked state of a checkbox (handles array enumeration values)
-   * @param {String} name - the name of the asset field to update
+   * @param {String} name - the name of the transaction field to update
    * @param {any} value - the enumeration value for which to toggle the checked state
    */
   changeArrayValue(name: string, value: any): void {
@@ -98,106 +101,105 @@ export class AcademicRecordComponent implements OnInit {
 
 	/**
 	 * Checkbox helper, determining whether an enumeration value should be selected or not (for array enumeration values
-   * only). This is used for checkboxes in the asset updateDialog.
-   * @param {String} name - the name of the asset field to check
+   * only). This is used for checkboxes in the transaction updateDialog.
+   * @param {String} name - the name of the transaction field to check
    * @param {any} value - the enumeration value to check for
-   * @return {Boolean} whether the specified asset field contains the provided value
+   * @return {Boolean} whether the specified transaction field contains the provided value
    */
   hasArrayValue(name: string, value: any): boolean {
     return this[name].value.indexOf(value) !== -1;
   }
 
-  addAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: 'academic.records.network.AcademicRecord',
-      'recordId': this.recordId.value,
+  addTransaction(form: any): Promise<any> {
+    this.Transaction = {
+      $class: 'academic.records.network.AddRecordByAdmin',
+      'issuer': this.issuer.value,
+      'person': this.person.value,
       'studentId': this.studentId.value,
       'degree': this.degree.value,
-      'status': this.status.value,
       'gpa': this.gpa.value,
+      'enrollmentDate': this.enrollmentDate.value,
       'graduationDate': this.graduationDate.value,
       'courses': this.courses.value,
-      'student': this.student.value,
-      'issuer': this.issuer.value
+      'transactionId': this.transactionId.value,
+      'timestamp': this.timestamp.value
     };
 
     this.myForm.setValue({
-      'recordId': null,
+      'issuer': null,
+      'person': null,
       'studentId': null,
       'degree': null,
-      'status': null,
       'gpa': null,
+      'enrollmentDate': null,
       'graduationDate': null,
       'courses': null,
-      'student': null,
-      'issuer': null
+      'transactionId': null,
+      'timestamp': null
     });
 
-    return this.serviceAcademicRecord.addAsset(this.asset)
+    return this.serviceAddRecordByAdmin.addTransaction(this.Transaction)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
       this.myForm.setValue({
-        'recordId': null,
+        'issuer': null,
+        'person': null,
         'studentId': null,
         'degree': null,
-        'status': null,
         'gpa': null,
+        'enrollmentDate': null,
         'graduationDate': null,
         'courses': null,
-        'student': null,
-        'issuer': null
+        'transactionId': null,
+        'timestamp': null
       });
-      this.loadAll();
-    })
-    .catch((error) => {
-      if (error === 'Server error') {
-          this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
-      } else {
-          this.errorMessage = error;
-      }
-    });
-  }
-
-
-  updateAsset(form: any): Promise<any> {
-    this.asset = {
-      $class: 'academic.records.network.AcademicRecord',
-      'studentId': this.studentId.value,
-      'degree': this.degree.value,
-      'status': this.status.value,
-      'gpa': this.gpa.value,
-      'graduationDate': this.graduationDate.value,
-      'courses': this.courses.value,
-      'student': this.student.value,
-      'issuer': this.issuer.value
-    };
-
-    return this.serviceAcademicRecord.updateAsset(form.get('recordId').value, this.asset)
-    .toPromise()
-    .then(() => {
-      this.errorMessage = null;
-      this.loadAll();
     })
     .catch((error) => {
       if (error === 'Server error') {
         this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
-      } else if (error === '404 - Not Found') {
-        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
       } else {
         this.errorMessage = error;
       }
     });
   }
 
+  updateTransaction(form: any): Promise<any> {
+    this.Transaction = {
+      $class: 'academic.records.network.AddRecordByAdmin',
+      'issuer': this.issuer.value,
+      'person': this.person.value,
+      'studentId': this.studentId.value,
+      'degree': this.degree.value,
+      'gpa': this.gpa.value,
+      'enrollmentDate': this.enrollmentDate.value,
+      'graduationDate': this.graduationDate.value,
+      'courses': this.courses.value,
+      'timestamp': this.timestamp.value
+    };
 
-  deleteAsset(): Promise<any> {
-
-    return this.serviceAcademicRecord.deleteAsset(this.currentId)
+    return this.serviceAddRecordByAdmin.updateTransaction(form.get('transactionId').value, this.Transaction)
     .toPromise()
     .then(() => {
       this.errorMessage = null;
-      this.loadAll();
+    })
+    .catch((error) => {
+      if (error === 'Server error') {
+        this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
+      } else if (error === '404 - Not Found') {
+      this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      } else {
+        this.errorMessage = error;
+      }
+    });
+  }
+
+  deleteTransaction(): Promise<any> {
+
+    return this.serviceAddRecordByAdmin.deleteTransaction(this.currentId)
+    .toPromise()
+    .then(() => {
+      this.errorMessage = null;
     })
     .catch((error) => {
       if (error === 'Server error') {
@@ -216,26 +218,33 @@ export class AcademicRecordComponent implements OnInit {
 
   getForm(id: any): Promise<any> {
 
-    return this.serviceAcademicRecord.getAsset(id)
+    return this.serviceAddRecordByAdmin.getTransaction(id)
     .toPromise()
     .then((result) => {
       this.errorMessage = null;
       const formObject = {
-        'recordId': null,
+        'issuer': null,
+        'person': null,
         'studentId': null,
         'degree': null,
-        'status': null,
         'gpa': null,
+        'enrollmentDate': null,
         'graduationDate': null,
         'courses': null,
-        'student': null,
-        'issuer': null
+        'transactionId': null,
+        'timestamp': null
       };
 
-      if (result.recordId) {
-        formObject.recordId = result.recordId;
+      if (result.issuer) {
+        formObject.issuer = result.issuer;
       } else {
-        formObject.recordId = null;
+        formObject.issuer = null;
+      }
+
+      if (result.person) {
+        formObject.person = result.person;
+      } else {
+        formObject.person = null;
       }
 
       if (result.studentId) {
@@ -250,16 +259,16 @@ export class AcademicRecordComponent implements OnInit {
         formObject.degree = null;
       }
 
-      if (result.status) {
-        formObject.status = result.status;
-      } else {
-        formObject.status = null;
-      }
-
       if (result.gpa) {
         formObject.gpa = result.gpa;
       } else {
         formObject.gpa = null;
+      }
+
+      if (result.enrollmentDate) {
+        formObject.enrollmentDate = result.enrollmentDate;
+      } else {
+        formObject.enrollmentDate = null;
       }
 
       if (result.graduationDate) {
@@ -274,16 +283,16 @@ export class AcademicRecordComponent implements OnInit {
         formObject.courses = null;
       }
 
-      if (result.student) {
-        formObject.student = result.student;
+      if (result.transactionId) {
+        formObject.transactionId = result.transactionId;
       } else {
-        formObject.student = null;
+        formObject.transactionId = null;
       }
 
-      if (result.issuer) {
-        formObject.issuer = result.issuer;
+      if (result.timestamp) {
+        formObject.timestamp = result.timestamp;
       } else {
-        formObject.issuer = null;
+        formObject.timestamp = null;
       }
 
       this.myForm.setValue(formObject);
@@ -293,7 +302,7 @@ export class AcademicRecordComponent implements OnInit {
       if (error === 'Server error') {
         this.errorMessage = 'Could not connect to REST server. Please check your configuration details';
       } else if (error === '404 - Not Found') {
-        this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
+      this.errorMessage = '404 - Could not find API route. Please check your available APIs.';
       } else {
         this.errorMessage = error;
       }
@@ -302,16 +311,16 @@ export class AcademicRecordComponent implements OnInit {
 
   resetForm(): void {
     this.myForm.setValue({
-      'recordId': null,
+      'issuer': null,
+      'person': null,
       'studentId': null,
       'degree': null,
-      'status': null,
       'gpa': null,
+      'enrollmentDate': null,
       'graduationDate': null,
       'courses': null,
-      'student': null,
-      'issuer': null
-      });
+      'transactionId': null,
+      'timestamp': null
+    });
   }
-
 }

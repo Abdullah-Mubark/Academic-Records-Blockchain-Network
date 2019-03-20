@@ -5,8 +5,8 @@ Records adding input:
   "person": "resource:academic.records.network.Citizen#1091935815",
   "studentId": "214110377",
   "degree": "Bachelor in Software engineering",
-  "status": "Graduated",
   "gpa": "2.5/4",
+  "enrollmentDate": "2014-08-20T12:21:31.465Z",
   "graduationDate": "2019-02-24T10:05:32.845Z",
   "courses": [
     {
@@ -32,7 +32,8 @@ Records adding input:
   "person": "resource:academic.records.network.Citizen#1091935815",
   "studentId": "144234565",
   "degree": "Master in Software engineering",
-  "status": "Regular",
+  "enrollmentDate": "2014-08-20T12:21:31.465Z",
+  "graduationDate": "2019-02-24T10:05:32.845Z",
   "gpa": "3.1/5",
   "courses": [
     {
@@ -58,6 +59,7 @@ Records adding input:
   "person": "resource:academic.records.network.Citizen#1080032142",
   "studentId": "214110654",
   "degree": "Bachelor in Software engineering",
-  "status": "Graduated",
+  "enrollmentDate": "2014-08-20T12:21:31.465Z",
+  "graduationDate": "2019-02-24T10:05:32.845Z",
   "gpa": "3.5/4"
 }

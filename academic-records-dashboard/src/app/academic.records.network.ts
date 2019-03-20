@@ -21,8 +21,8 @@ import {Event} from './org.hyperledger.composer.system';
       recordId: string;
       studentId: string;
       degree: string;
-      status: string;
       gpa: string;
+      enrollmentDate: Date;
       graduationDate: Date;
       courses: Course[];
       student: Citizen;
@@ -46,8 +46,8 @@ import {Event} from './org.hyperledger.composer.system';
       person: Citizen;
       studentId: string;
       degree: string;
-      status: string;
       gpa: string;
+      enrollmentDate: Date;
       graduationDate: Date;
       courses: Course[];
    }
@@ -57,8 +57,18 @@ import {Event} from './org.hyperledger.composer.system';
    export class EditRecord extends Transaction {
       record: AcademicRecord;
       degree: string;
-      status: string;
       gpa: string;
+      enrollmentDate: Date;
+      graduationDate: Date;
+      courses: Course[];
+   }
+   export class AddRecordByAdmin extends Transaction {
+      issuer: Issuer;
+      person: Citizen;
+      studentId: string;
+      degree: string;
+      gpa: string;
+      enrollmentDate: Date;
       graduationDate: Date;
       courses: Course[];
    }

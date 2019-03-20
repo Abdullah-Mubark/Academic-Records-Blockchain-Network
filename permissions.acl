@@ -58,6 +58,14 @@ rule IssuerCanInvokeRemoveRecord {
     action: ALLOW
 }
 
+rule IssuerCannotInvokeAddRecordByAdmin {
+    description: "Issuer is not allowed to invoke AddRecordByAdmin smart contract."
+    participant: "academic.records.network.Issuer"
+    operation: ALL
+    resource: "academic.records.network.AddRecordByAdmin"
+    action: DENY
+}
+
 rule IssuerFullAcessOnItsInfo {
     description: "Issuer can create, remove, read or update or remove any record issued under its name."
     participant(p): "academic.records.network.Issuer"

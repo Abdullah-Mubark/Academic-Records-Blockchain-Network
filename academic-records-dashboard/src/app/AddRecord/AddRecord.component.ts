@@ -35,8 +35,8 @@ export class AddRecordComponent implements OnInit {
   person = new FormControl('', Validators.required);
   studentId = new FormControl('', Validators.required);
   degree = new FormControl('', Validators.required);
-  status = new FormControl('', Validators.required);
   gpa = new FormControl('', Validators.required);
+  enrollmentDate = new FormControl('', Validators.required);
   graduationDate = new FormControl('', Validators.required);
   courses = new FormControl('', Validators.required);
   transactionId = new FormControl('', Validators.required);
@@ -48,8 +48,8 @@ export class AddRecordComponent implements OnInit {
       person: this.person,
       studentId: this.studentId,
       degree: this.degree,
-      status: this.status,
       gpa: this.gpa,
+      enrollmentDate: this.enrollmentDate,
       graduationDate: this.graduationDate,
       courses: this.courses,
       transactionId: this.transactionId,
@@ -114,8 +114,8 @@ export class AddRecordComponent implements OnInit {
       'person': this.person.value,
       'studentId': this.studentId.value,
       'degree': this.degree.value,
-      'status': this.status.value,
       'gpa': this.gpa.value,
+      'enrollmentDate': this.enrollmentDate.value,
       'graduationDate': this.graduationDate.value,
       'courses': this.courses.value,
       'transactionId': this.transactionId.value,
@@ -126,8 +126,8 @@ export class AddRecordComponent implements OnInit {
       'person': null,
       'studentId': null,
       'degree': null,
-      'status': null,
       'gpa': null,
+      'enrollmentDate': null,
       'graduationDate': null,
       'courses': null,
       'transactionId': null,
@@ -142,8 +142,8 @@ export class AddRecordComponent implements OnInit {
         'person': null,
         'studentId': null,
         'degree': null,
-        'status': null,
         'gpa': null,
+        'enrollmentDate': null,
         'graduationDate': null,
         'courses': null,
         'transactionId': null,
@@ -165,8 +165,8 @@ export class AddRecordComponent implements OnInit {
       'person': this.person.value,
       'studentId': this.studentId.value,
       'degree': this.degree.value,
-      'status': this.status.value,
       'gpa': this.gpa.value,
+      'enrollmentDate': this.enrollmentDate.value,
       'graduationDate': this.graduationDate.value,
       'courses': this.courses.value,
       'timestamp': this.timestamp.value
@@ -220,8 +220,8 @@ export class AddRecordComponent implements OnInit {
         'person': null,
         'studentId': null,
         'degree': null,
-        'status': null,
         'gpa': null,
+        'enrollmentDate': null,
         'graduationDate': null,
         'courses': null,
         'transactionId': null,
@@ -246,16 +246,16 @@ export class AddRecordComponent implements OnInit {
         formObject.degree = null;
       }
 
-      if (result.status) {
-        formObject.status = result.status;
-      } else {
-        formObject.status = null;
-      }
-
       if (result.gpa) {
         formObject.gpa = result.gpa;
       } else {
         formObject.gpa = null;
+      }
+
+      if (result.enrollmentDate) {
+        formObject.enrollmentDate = result.enrollmentDate;
+      } else {
+        formObject.enrollmentDate = null;
       }
 
       if (result.graduationDate) {
@@ -301,8 +301,8 @@ export class AddRecordComponent implements OnInit {
       'person': null,
       'studentId': null,
       'degree': null,
-      'status': null,
       'gpa': null,
+      'enrollmentDate': null,
       'graduationDate': null,
       'courses': null,
       'transactionId': null,

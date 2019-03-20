@@ -1,16 +1,16 @@
 {
-  "name": "acadmeic-records-dashboard",
-  "description": "This is an angular dashboard that connects with the rest api",
+  "name": "angular-app",
+  "description": "Hyperledger Composer Angular project",
   "version": "0.0.1",
-  "author": "abood",
-  "email": "awm1417@gmail.com",
+  "author": "ELM",
+  "email": "aalmubark@elm.sa",
   "license": "Apache-2.0",
   "engines": {
     "node": ">=8",
     "npm": ">=5"
   },
   "bin": {
-    "acadmeic-records-dashboard": "app.js"
+    "angular-app": "app.js"
   },
   "scripts": {
     "ng": "ng",

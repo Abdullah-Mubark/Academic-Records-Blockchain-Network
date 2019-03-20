@@ -25,6 +25,7 @@ import { IssuerComponent } from './Issuer/Issuer.component';
 import { AddRecordComponent } from './AddRecord/AddRecord.component';
 import { RemoveRecordComponent } from './RemoveRecord/RemoveRecord.component';
 import { EditRecordComponent } from './EditRecord/EditRecord.component';
+import { AddRecordByAdminComponent } from './AddRecordByAdmin/AddRecordByAdmin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'AddRecord', component: AddRecordComponent },
   { path: 'RemoveRecord', component: RemoveRecordComponent },
   { path: 'EditRecord', component: EditRecordComponent },
+  { path: 'AddRecordByAdmin', component: AddRecordByAdminComponent },
   { path: '**', redirectTo: '' }
 ];
 

@@ -17,37 +17,37 @@ import { ExpectedConditions, browser, element, by } from 'protractor';
 import {} from 'jasmine';
 
 
-describe('Starting tests for acadmeic-records-dashboard', function() {
+describe('Starting tests for angular-app', function() {
   let page: AngularTestPage;
 
   beforeEach(() => {
     page = new AngularTestPage();
   });
 
-  it('website title should be acadmeic-records-dashboard', () => {
+  it('website title should be angular-app', () => {
     page.navigateTo('/');
     return browser.getTitle().then((result)=>{
-      expect(result).toBe('acadmeic-records-dashboard');
+      expect(result).toBe('angular-app');
     })
   });
 
-  it('network-name should be academic-records@0.0.3',() => {
+  it('network-name should be academic-records@0.0.4',() => {
     element(by.css('.network-name')).getWebElement()
     .then((webElement) => {
       return webElement.getText();
     })
     .then((txt) => {
-      expect(txt).toBe('academic-records@0.0.3.bna');
+      expect(txt).toBe('academic-records@0.0.4.bna');
     });
   });
 
-  it('navbar-brand should be acadmeic-records-dashboard',() => {
+  it('navbar-brand should be angular-app',() => {
     element(by.css('.navbar-brand')).getWebElement()
     .then((webElement) => {
       return webElement.getText();
     })
     .then((txt) => {
-      expect(txt).toBe('acadmeic-records-dashboard');
+      expect(txt).toBe('angular-app');
     });
   });
 
@@ -140,6 +140,17 @@ describe('Starting tests for acadmeic-records-dashboard', function() {
       })
       .then((txt) => {
         expect(txt).toBe('EditRecord');
+      });
+    });
+  
+    it('AddRecordByAdmin component should be loadable',() => {
+      page.navigateTo('/AddRecordByAdmin');
+      browser.findElement(by.id('transactionName'))
+      .then((transactionName) => {
+        return transactionName.getText();
+      })
+      .then((txt) => {
+        expect(txt).toBe('AddRecordByAdmin');
       });
     });
   
