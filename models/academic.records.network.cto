@@ -22,7 +22,6 @@ participant Citizen identified by id {
   o String lastName
   o String gender optional
   o DateTime birthDate optional
-  --> AcademicRecord[] records
 }
 
 participant Issuer identified by crNumber {
