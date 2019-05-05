@@ -29,9 +29,9 @@ export FABRIC_VERSION=hlfv12
 yo hyperledger-composer:businessnetwork
 cd /c/Users/Abdulah-Lab/academic-records
 composer archive create -t dir -n .
-composer network install --card  PeerAdmin@hlfv1 --archiveFile academic-records@0.0.4.bna
-//Upgrade Command : composer network upgrade -c admin@hlfv1 -n academic-records -V 0.0.4
-composer network start --networkName academic-records --networkVersion 0.0.4 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer network install --card  PeerAdmin@hlfv1 --archiveFile academic-records@0.0.5.bna
+//Upgrade Command : composer network upgrade -c admin@hlfv1 -n academic-records -V 0.0.5
+composer network start --networkName academic-records --networkVersion 0.0.5 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 composer card import --file networkadmin.card
 composer network ping --card admin@academic-records
 

@@ -1,58 +1,55 @@
-/*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
-import { DataService } from './data.service';
+import { RouterModule } from '@angular/router';
+import { NguiMapModule} from '@ngui/map';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { AppRoutes } from './app.routing';
+import { SidebarModule } from './sidebar/sidebar.module';
+import { FooterModule } from './shared/footer/footer.module';
+import { NavbarModule} from './shared/navbar/navbar.module';
+import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
-import { AcademicRecordComponent } from './AcademicRecord/AcademicRecord.component';
 
-import { CitizenComponent } from './Citizen/Citizen.component';
-import { IssuerComponent } from './Issuer/Issuer.component';
+import { DashboardComponent }   from './dashboard/dashboard.component';
+import { UserComponent }   from './user/user.component';
+import { TableComponent }   from './table/table.component';
+import { TypographyComponent }   from './typography/typography.component';
+import { IconsComponent }   from './icons/icons.component';
+import { MapsComponent }   from './maps/maps.component';
+import { NotificationsComponent }   from './notifications/notifications.component';
+import { UploadRecordsComponent }   from './uploadRecords/upload.records.component';
 
-import { AddRecordComponent } from './AddRecord/AddRecord.component';
-import { RemoveRecordComponent } from './RemoveRecord/RemoveRecord.component';
-import { EditRecordComponent } from './EditRecord/EditRecord.component';
-import { AddRecordByAdminComponent } from './AddRecordByAdmin/AddRecordByAdmin.component';
+import {AcademicRecordsService} from './shared/services/academic.records.service';
 
-  @NgModule({
+@NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    AcademicRecordComponent,
-    CitizenComponent,
-    IssuerComponent,
-    AddRecordComponent,
-    RemoveRecordComponent,
-    EditRecordComponent,
-    AddRecordByAdminComponent
+    DashboardComponent,
+    UserComponent,
+    TableComponent,
+    TypographyComponent,
+    IconsComponent,
+    MapsComponent,
+    NotificationsComponent,
+    UploadRecordsComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(AppRoutes),
+    SidebarModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
-    AppRoutingModule
+    NavbarModule,
+    FooterModule,
+    FixedPluginModule,
+    HttpClientModule,
+    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE'})
+
   ],
-  providers: [
-    DataService
-  ],
+  providers: [AcademicRecordsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
