@@ -132,7 +132,17 @@ export class DashboardComponent implements OnInit {
     // console.log(this.SearchForm);
     // console.log(this.academicRecordsService.getRecords(this.SearchForm.value.Id));
     const id = this.SearchForm.value.Id;
-    console.log(this.academicRecordsService.getRecords(id));
+    this.academicRecordsService.getAllRecords().subscribe(records => {
+      console.log(records);
+      for (let index in records) {
+        const record = records[index];
+        const id = record['student'].substr(record['student'].length - 10);
+        this.academicRecordsService.getStudentInfo(id).subscribe(studentInfo => {
+          console.log(studentInfo);
+        });
+      }
+
+    })
     //console.log(this.academicRecordsService.getRecords(id));
   }
 
