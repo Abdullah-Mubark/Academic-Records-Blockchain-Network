@@ -1,0 +1,17 @@
+{
+	"name": "AcademicRecords-ChainCode",
+	"version": "1.0.0",
+	"description": "AcademicRecords-ChainCode chaincode implemented in node.js.",
+	"engines": {
+		"node": ">=8.4.0",
+		"npm": ">=5.3.0"
+	},
+	"scripts": { "start" : "node academic-records-chaincode.js" },
+	"engine-strict": true,
+	"license": "Apache-2.0",
+	"dependencies": {
+		"fabric-shim": "~1.4.1",
+		"ajv": "^6.5.",
+		"lodash": "4.17.11"
+	}
+}
