@@ -1,0 +1,28 @@
+docker kill $(docker ps -aq)
+docker rm $(docker ps -aq)
+docker exec -it dev-peer0.org1.example.com-academicRecordsCC bash
+------------------------------------------------------
+peer chaincode install \
+-l node -n academicRecordsCC \
+-p /opt/gopath/src/github.com/chaincode/academic-records \
+-v v0
+------------------------------------------------------
+peer chaincode instantiate \
+-o orderer.example.com:7050  \
+-C mychannel \
+-l node \
+-n academicRecordsCC \
+-v v0 \
+-c '{"Args":["init"]}' \
+-P 'OR ("Org1MSP.member")' \
+--tls true \
+--cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+-------------------------------------------------------
+peer chaincode invoke \
+-o orderer.example.com:7050 \
+-C mychannel -n academicRecordsCC \
+-c '{"function":"addAcademicRecord","Args":[""]}'
+
+
+
+

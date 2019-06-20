@@ -1,5 +1,2 @@
 bc-dashboard/node_modules
 bc-chaincode/academic-records/node_modules
-bc-test/fabric-chaincode-node/node_modules
-bc-test/fabric-samples/chaincode/academic-records
-bc-test/fabric-samples/bin
