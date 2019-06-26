@@ -10,7 +10,7 @@ CLI_DELAY="3"
 ## Create channel
 echo "Creating channel..."
 
-docker exec $(docker ps -q --filter "name=byfn_cli") scripts/createchannel.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE
+docker exec $(docker ps -q --filter "name=cli") scripts/createchannel.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE
 if [ $? -ne 0 ]; then
 echo "ERROR !!!! channel creation failed"
 exit 1
