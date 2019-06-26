@@ -2,9 +2,7 @@
 docker kill $(docker ps -aq)
 docker rm $(docker ps -aq)
 // Enter cli container 
-docker exec -it dev-peer0.org1.example.com-academicRecordsCC bash
-// docker swarm join:
-docker swarm join --token SWMTKN-1-161ky43megq6vwqq0pckhit2vrwvk0r1o4maq0ewuhmfyuesrv-3qli0jzhl106wl165qbq6lfuo 192.168.65.3:2377
+docker exec -it dev-peer0.org1.academicrecords.com-academicRecordsCC bash
 // Remove the directory and then Copy to WSL
 sudo rm -r /home/abdullah/academic-records && sudo cp -r /mnt/c/users/Abdulah-Lab/academic-records ~
 ------------------------------------------------------

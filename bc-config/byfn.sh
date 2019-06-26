@@ -151,11 +151,11 @@ function checkPrereqs() {
 function networkUp() {
   checkPrereqs
   # generate artifacts if they don't exist
-  # if [ ! -d "crypto-config" ]; then
-  #   generateCerts
-  #   replacePrivateKey
-  #   generateChannelArtifacts
-  # fi
+  if [ ! -d "crypto-config" ]; then
+    generateCerts
+    replacePrivateKey
+    generateChannelArtifacts
+  fi
   # if [ "${IF_COUCHDB}" == "couchdb" ]; then
   #   if [ "$CONSENSUS_TYPE" == "kafka" ]; then
   #     IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_KAFKA -f $COMPOSE_FILE_COUCH up -d 2>&1
@@ -194,18 +194,21 @@ function networkUp() {
   #   sleep 9
   # fi
 
-  if [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
-    sleep 1
-    echo "Sleeping 15s to allow $CONSENSUS_TYPE cluster to complete booting"
-    sleep 14
-  fi
+  # if [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
+  #   sleep 1
+  #   echo "Sleeping 15s to allow $CONSENSUS_TYPE cluster to complete booting"
+  #   sleep 14
+  # fi
+  sleep 1
+  echo "Sleeping 15s to allow $CONSENSUS_TYPE cluster to complete booting"
+  sleep 14
 
   # now run the end to end script
-  docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE
-  if [ $? -ne 0 ]; then
-    echo "ERROR !!!! Test failed"
-    exit 1
-  fi
+  # docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE
+  # if [ $? -ne 0 ]; then
+  #   echo "ERROR !!!! Test failed"
+  #   exit 1
+  # fi
 }
 
 # Upgrade the network components which are at version 1.3.x to 1.4.x
@@ -433,18 +436,19 @@ function generateChannelArtifacts() {
   # named orderer.genesis.block or the orderer will fail to launch!
   echo "CONSENSUS_TYPE="$CONSENSUS_TYPE
   set -x
-  if [ "$CONSENSUS_TYPE" == "solo" ]; then
-    configtxgen -profile TwoOrgsOrdererGenesis -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
-  elif [ "$CONSENSUS_TYPE" == "kafka" ]; then
-    configtxgen -profile SampleDevModeKafka -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
-  elif [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
-    configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
-  else
-  set +x
-  echo "unrecognized CONSESUS_TYPE='$CONSENSUS_TYPE'. exiting"
-  exit 1
-  fi
-  
+  # if [ "$CONSENSUS_TYPE" == "solo" ]; then
+  #   configtxgen -profile TwoOrgsOrdererGenesis -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
+  # elif [ "$CONSENSUS_TYPE" == "kafka" ]; then
+  #   configtxgen -profile SampleDevModeKafka -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
+  # elif [ "$CONSENSUS_TYPE" == "etcdraft" ]; then
+  #   configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
+  # else
+  #   set +x
+  #   echo "unrecognized CONSESUS_TYPE='$CONSENSUS_TYPE'. exiting"
+  #   exit 1
+  # fi
+
+  configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
   res=$?
   set +x
   if [ $res -ne 0 ]; then
@@ -508,16 +512,16 @@ COMPOSE_FILE=docker-compose-cli.yaml
 #
 COMPOSE_FILE_COUCH=docker-compose-couch.yaml
 # org3 docker compose file
-#COMPOSE_FILE_ORG3=docker-compose-org3.yaml
+# COMPOSE_FILE_ORG3=docker-compose-org3.yaml
 # kafka and zookeeper compose file
-#COMPOSE_FILE_KAFKA=docker-compose-kafka.yaml
+# COMPOSE_FILE_KAFKA=docker-compose-kafka.yaml
 # two additional etcd/raft orderers
 COMPOSE_FILE_RAFT2=docker-compose-etcdraft2.yaml
 #
-# use node as the default language for chaincode
-LANGUAGE="node"
+# use golang as the default language for chaincode
+LANGUAGE=node
 # default image tag
-IMAGETAG="1.4"
+IMAGETAG="latest"
 # default consensus type
 CONSENSUS_TYPE="etcdraft"
 # Parse commandline args
