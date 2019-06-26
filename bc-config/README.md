@@ -48,7 +48,7 @@ sudo systemctl start docker
 ###### Install Docker Compose, run below commands
 Sometime links are broken , you need to visit the link (https://github.com/docker/compose/releases) to get required release
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 sudo chmod +x /usr/local/bin/docker-compose                        
 
@@ -196,5 +196,5 @@ Add new org to the network are same steps are done for building network for the 
 8- Instantiate if it is a new chaincode else query existing chaincode
 
 a complere official documentation and steps can be found on following link
-https://hyperledger-fabric.readthedocs.io/en/release-1.3/channel_update_tutorial.html
+https://hyperledger-fabric.readthedocs.io/en/release-1.4/channel_update_tutorial.html
 ```

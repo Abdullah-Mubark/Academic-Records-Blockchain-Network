@@ -1,0 +1,90 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  orderer.academicrecords.com:
+  peer0.org1.academicrecords.com:
+  peer1.org1.academicrecords.com:
+  peer0.org2.academicrecords.com:
+  peer1.org2.academicrecords.com:
+
+networks:
+  byfn:
+services:
+  ca0:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-org1
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.academicrecords.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/d67e782937a97b98bd17cb6223f6bf9d1eee02a0343c658a5adacc0575dc028e_sk
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.academicrecords.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/d67e782937a97b98bd17cb6223f6bf9d1eee02a0343c658a5adacc0575dc028e_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/org1.academicrecords.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerOrg1
+    networks:
+      - byfn
+
+  ca1:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-org2
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.academicrecords.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/a3847327fb42f887d74ad021d0b31d4af4a6f9d8b69eb536dd2280356b20eb8d_sk
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org2.academicrecords.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/a3847327fb42f887d74ad021d0b31d4af4a6f9d8b69eb536dd2280356b20eb8d_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/org2.academicrecords.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerOrg2
+    networks:
+      - byfn
+
+  orderer.academicrecords.com:
+    extends:
+      file:   base/docker-compose-base.yaml
+      service: orderer.academicrecords.com
+    container_name: orderer.academicrecords.com
+    networks:
+      - byfn
+
+  peer0.org1.academicrecords.com:
+    container_name: peer0.org1.academicrecords.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.org1.academicrecords.com
+    networks:
+      - byfn
+
+  peer1.org1.academicrecords.com:
+    container_name: peer1.org1.academicrecords.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.org1.academicrecords.com
+    networks:
+      - byfn
+
+  peer0.org2.academicrecords.com:
+    container_name: peer0.org2.academicrecords.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer0.org2.academicrecords.com
+    networks:
+      - byfn
+
+  peer1.org2.academicrecords.com:
+    container_name: peer1.org2.academicrecords.com
+    extends:
+      file:  base/docker-compose-base.yaml
+      service: peer1.org2.academicrecords.com
+    networks:
+      - byfn

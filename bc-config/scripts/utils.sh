@@ -1,4 +1,4 @@
- #
+#
 # Copyright IBM Corp All Rights Reserved
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -6,17 +6,10 @@
 
 # This is a collection of bash functions used by different scripts
 
-ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/ryadhinspections.com/orderers/orderer.ryadhinspections.com/msp/tlscacerts/tlsca.ryadhinspections.com-cert.pem
-
-PEER0_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/rm.ryadhinspections.com/peers/peer0.rm.ryadhinspections.com/tls/ca.crt
-PEER0_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/cd.ryadhinspections.com/peers/peer0.cd.ryadhinspections.com/tls/ca.crt
-PEER0_ORG3_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/sfda.ryadhinspections.com/peers/peer0.sfda.ryadhinspections.com/tls/ca.crt
-PEER0_ORG4_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/reg1.ryadhinspections.com/peers/peer0.reg1.ryadhinspections.com/tls/ca.crt
-
-PEER1_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/rm.ryadhinspections.com/peers/peer1.rm.ryadhinspections.com/tls/ca.crt
-PEER1_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/cd.ryadhinspections.com/peers/peer1.cd.ryadhinspections.com/tls/ca.crt
-PEER1_ORG3_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/sfda.ryadhinspections.com/peers/peer1.sfda.ryadhinspections.com/tls/ca.crt
-PEER1_ORG4_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/reg1.ryadhinspections.com/peers/peer1.reg1.ryadhinspections.com/tls/ca.crt
+ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/academicrecords.com/orderers/orderer.academicrecords.com/msp/tlscacerts/tlsca.academicrecords.com-cert.pem
+PEER0_ORG1_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.academicrecords.com/peers/peer0.org1.academicrecords.com/tls/ca.crt
+PEER0_ORG2_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.academicrecords.com/peers/peer0.org2.academicrecords.com/tls/ca.crt
+PEER0_ORG3_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.academicrecords.com/peers/peer0.org3.academicrecords.com/tls/ca.crt
 
 # verify the result of the end-to-end test
 verifyResult() {
@@ -24,62 +17,47 @@ verifyResult() {
     echo "!!!!!!!!!!!!!!! "$2" !!!!!!!!!!!!!!!!"
     echo "========= ERROR !!! FAILED to execute End-2-End Scenario ==========="
     echo
+    exit 1
   fi
 }
 
 # Set OrdererOrg.Admin globals
 setOrdererGlobals() {
   CORE_PEER_LOCALMSPID="OrdererMSP"
-  CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/ryadhinspections.com/orderers/orderer.ryadhinspections.com/msp/tlscacerts/tlsca.ryadhinspections.com-cert.pem
-  CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/ryadhinspections.com/users/Admin@ryadhinspections.com/msp
+  CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/academicrecords.com/orderers/orderer.academicrecords.com/msp/tlscacerts/tlsca.academicrecords.com-cert.pem
+  CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/academicrecords.com/users/Admin@academicrecords.com/msp
 }
 
 setGlobals() {
   PEER=$1
   ORG=$2
   if [ $ORG -eq 1 ]; then
-    CORE_PEER_LOCALMSPID="RMMSP"
-    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/rm.ryadhinspections.com/users/Admin@rm.ryadhinspections.com/msp
+    CORE_PEER_LOCALMSPID="Org1MSP"
+    CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
+    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.academicrecords.com/users/Admin@org1.academicrecords.com/msp
     if [ $PEER -eq 0 ]; then
-	  CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
-      CORE_PEER_ADDRESS=peer0.rm.ryadhinspections.com:7051
+      CORE_PEER_ADDRESS=peer0.org1.academicrecords.com:7051
     else
-	  CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG1_CA
-      CORE_PEER_ADDRESS=peer1.rm.ryadhinspections.com:7051
+      CORE_PEER_ADDRESS=peer1.org1.academicrecords.com:8051
     fi
   elif [ $ORG -eq 2 ]; then
-    CORE_PEER_LOCALMSPID="CDMSP"
-    
-    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/cd.ryadhinspections.com/users/Admin@cd.ryadhinspections.com/msp
+    CORE_PEER_LOCALMSPID="Org2MSP"
+    CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG2_CA
+    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.academicrecords.com/users/Admin@org2.academicrecords.com/msp
     if [ $PEER -eq 0 ]; then
-	  CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG2_CA
-      CORE_PEER_ADDRESS=peer0.cd.ryadhinspections.com:7051
+      CORE_PEER_ADDRESS=peer0.org2.academicrecords.com:9051
     else
-	  CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG2_CA
-      CORE_PEER_ADDRESS=peer1.cd.ryadhinspections.com:7051
+      CORE_PEER_ADDRESS=peer1.org2.academicrecords.com:10051
     fi
 
   elif [ $ORG -eq 3 ]; then
-    CORE_PEER_LOCALMSPID="SFDAMSP"
-    
-    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/sfda.ryadhinspections.com/users/Admin@sfda.ryadhinspections.com/msp
+    CORE_PEER_LOCALMSPID="Org3MSP"
+    CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG3_CA
+    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.academicrecords.com/users/Admin@org3.academicrecords.com/msp
     if [ $PEER -eq 0 ]; then
-	  CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG3_CA
-      CORE_PEER_ADDRESS=peer0.sfda.ryadhinspections.com:7051
+      CORE_PEER_ADDRESS=peer0.org3.academicrecords.com:11051
     else
-	  CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG3_CA
-      CORE_PEER_ADDRESS=peer1.sfda.ryadhinspections.com:7051
-    fi
-  elif [ $ORG -eq 4 ]; then
-    CORE_PEER_LOCALMSPID="REG1MSP"
-    
-    CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/reg1.ryadhinspections.com/users/Admin@reg1.ryadhinspections.com/msp
-    if [ $PEER -eq 0 ]; then
-	  CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG4_CA
-      CORE_PEER_ADDRESS=peer0.reg1.ryadhinspections.com:7051
-    else
-	  CORE_PEER_TLS_ROOTCERT_FILE=$PEER1_ORG4_CA
-      CORE_PEER_ADDRESS=peer1.reg1.ryadhinspections.com:7051
+      CORE_PEER_ADDRESS=peer1.org3.academicrecords.com:12051
     fi
   else
     echo "================== ERROR !!! ORG Unknown =================="
@@ -97,12 +75,12 @@ updateAnchorPeers() {
 
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer channel update -o orderer.ryadhinspections.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx >&log.txt
+    peer channel update -o orderer.academicrecords.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx >&log.txt
     res=$?
     set +x
   else
     set -x
-    peer channel update -o orderer.ryadhinspections.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA >&log.txt
+    peer channel update -o orderer.academicrecords.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${CORE_PEER_LOCALMSPID}anchors.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA >&log.txt
     res=$?
     set +x
   fi
@@ -141,29 +119,12 @@ installChaincode() {
   setGlobals $PEER $ORG
   VERSION=${3:-1.0}
   set -x
-  peer chaincode install -n ${CC_NAME} -v ${CC_VERSION} -l ${LANGUAGE} -p ${CC_SRC_PATH} >&log.txt
+  peer chaincode install -n mycc -v ${VERSION} -l ${LANGUAGE} -p ${CC_SRC_PATH} >&log.txt
   res=$?
   set +x
   cat log.txt
   verifyResult $res "Chaincode installation on peer${PEER}.org${ORG} has failed"
   echo "===================== Chaincode is installed on peer${PEER}.org${ORG} ===================== "
-  echo
-}
-
-
-queryChaincode() {
-  PEER=$1
-  ORG=$2
-  setGlobals $PEER $ORG
-  VERSION=${3:-1.0}
-  set -x
-  peer chaincode query -C mychannel -n ${CC_NAME} -c '{"Args":["chaincodename","a"]}'
-  #peer chaincode install -n ${CC_NAME} -v ${VERSION} -l ${LANGUAGE} -p ${CC_SRC_PATH} >&log.txt
-  res=$?
-  set +x
-
-  verifyResult $res "Chaincode installation on peer${PEER}.org${ORG} has failed"
-  
   echo
 }
 
@@ -178,12 +139,12 @@ instantiateChaincode() {
   # the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer chaincode instantiate -o orderer.ryadhinspections.com:7050 -C $CHANNEL_NAME -n ${CC_NAME} -l ${LANGUAGE} -v ${CC_VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('RMMSP.peer','CDMSP.peer','SFDAMSP.peer','REG1MSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.academicrecords.com:7050 -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" >&log.txt
     res=$?
     set +x
   else
     set -x
-    peer chaincode instantiate -o orderer.ryadhinspections.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} -l ${LANGUAGE} -v ${CC_VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('RMMSP.peer','CDMSP.peer','SFDAMSP.peer','REG1MSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.academicrecords.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" >&log.txt
     res=$?
     set +x
   fi
@@ -193,8 +154,60 @@ instantiateChaincode() {
   echo
 }
 
+upgradeChaincode() {
+  PEER=$1
+  ORG=$2
+  setGlobals $PEER $ORG
 
+  set -x
+  peer chaincode upgrade -o orderer.academicrecords.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -v 2.0 -c '{"Args":["init","a","90","b","210"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer','Org3MSP.peer')"
+  res=$?
+  set +x
+  cat log.txt
+  verifyResult $res "Chaincode upgrade on peer${PEER}.org${ORG} has failed"
+  echo "===================== Chaincode is upgraded on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' ===================== "
+  echo
+}
 
+chaincodeQuery() {
+  PEER=$1
+  ORG=$2
+  setGlobals $PEER $ORG
+  EXPECTED_RESULT=$3
+  echo "===================== Querying on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME'... ===================== "
+  local rc=1
+  local starttime=$(date +%s)
+
+  # continue to poll
+  # we either get a successful response, or reach TIMEOUT
+  while
+    test "$(($(date +%s) - starttime))" -lt "$TIMEOUT" -a $rc -ne 0
+  do
+    sleep $DELAY
+    echo "Attempting to Query peer${PEER}.org${ORG} ...$(($(date +%s) - starttime)) secs"
+    set -x
+    peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}' >&log.txt
+    res=$?
+    set +x
+    test $res -eq 0 && VALUE=$(cat log.txt | awk '/Query Result/ {print $NF}')
+    test "$VALUE" = "$EXPECTED_RESULT" && let rc=0
+    # removed the string "Query Result" from peer chaincode query command
+    # result. as a result, have to support both options until the change
+    # is merged.
+    test $rc -ne 0 && VALUE=$(cat log.txt | egrep '^[0-9]+$')
+    test "$VALUE" = "$EXPECTED_RESULT" && let rc=0
+  done
+  echo
+  cat log.txt
+  if test $rc -eq 0; then
+    echo "===================== Query successful on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' ===================== "
+  else
+    echo "!!!!!!!!!!!!!!! Query result on peer${PEER}.org${ORG} is INVALID !!!!!!!!!!!!!!!!"
+    echo "================== ERROR !!! FAILED to execute End-2-End Scenario =================="
+    echo
+    exit 1
+  fi
+}
 
 # fetchChannelConfig <channel_id> <output_json>
 # Writes the current channel config for a given channel to a JSON file
@@ -207,11 +220,11 @@ fetchChannelConfig() {
   echo "Fetching the most recent configuration block for the channel"
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer channel fetch config config_block.pb -o orderer.ryadhinspections.com:7050 -c $CHANNEL --cafile $ORDERER_CA
+    peer channel fetch config config_block.pb -o orderer.academicrecords.com:7050 -c $CHANNEL --cafile $ORDERER_CA
     set +x
   else
     set -x
-    peer channel fetch config config_block.pb -o orderer.ryadhinspections.com:7050 -c $CHANNEL --tls --cafile $ORDERER_CA
+    peer channel fetch config config_block.pb -o orderer.academicrecords.com:7050 -c $CHANNEL --tls --cafile $ORDERER_CA
     set +x
   fi
 
@@ -264,9 +277,10 @@ parsePeerConnectionParameters() {
   PEER_CONN_PARMS=""
   PEERS=""
   while [ "$#" -gt 0 ]; do
+    setGlobals $1 $2
     PEER="peer$1.org$2"
     PEERS="$PEERS $PEER"
-    PEER_CONN_PARMS="$PEER_CONN_PARMS --peerAddresses $PEER.ryadhinspections.com:7051"
+    PEER_CONN_PARMS="$PEER_CONN_PARMS --peerAddresses $CORE_PEER_ADDRESS"
     if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "true" ]; then
       TLSINFO=$(eval echo "--tlsRootCertFiles \$PEER$1_ORG$2_CA")
       PEER_CONN_PARMS="$PEER_CONN_PARMS $TLSINFO"
@@ -291,34 +305,17 @@ chaincodeInvoke() {
   # it using the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer chaincode invoke -o orderer.ryadhinspections.com:7050 -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+    peer chaincode invoke -o orderer.academicrecords.com:7050 -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
     res=$?
     set +x
   else
     set -x
-    peer chaincode invoke -o orderer.ryadhinspections.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
+    peer chaincode invoke -o orderer.academicrecords.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc $PEER_CONN_PARMS -c '{"Args":["invoke","a","b","10"]}' >&log.txt
     res=$?
     set +x
   fi
   cat log.txt
   verifyResult $res "Invoke execution on $PEERS failed "
   echo "===================== Invoke transaction successful on $PEERS on channel '$CHANNEL_NAME' ===================== "
-  echo
-}
-
-
-
-upgradeChaincode() {
-  PEER=$1
-  ORG=$2
-  setGlobals $PEER $ORG
-  NEW_VERSION=$3
-  set -x
-  peer chaincode upgrade -o orderer.ryadhinspections.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} -v ${NEW_VERSION} -c '{"Args":["init","a","90","b","210"]}' -P "AND ('RMMSP.peer','CDMSP.peer','SFDAMSP.peer','REG1MSP.peer')"
-  res=$?
-  set +x
-  cat log.txt
-  verifyResult $res "Chaincode upgrade on peer${PEER}.org${ORG} has failed"
-  echo "===================== Chaincode is upgraded on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' ===================== "
   echo
 }
