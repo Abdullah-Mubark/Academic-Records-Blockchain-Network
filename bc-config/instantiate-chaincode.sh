@@ -9,7 +9,7 @@ CLI_DELAY="3"
 
 echo "Install chaincode..."
 
-docker exec $(docker ps -q --filter "name=byfn_cli") scripts/instantiatechaincode.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE
+docker exec $(docker ps -q --filter "name=cli") scripts/instantiatechaincode.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT $VERBOSE
 if [ $? -ne 0 ]; then
 echo "ERROR !!!! install chaincode failed"
 exit 1

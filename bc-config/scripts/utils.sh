@@ -119,7 +119,7 @@ installChaincode() {
   setGlobals $PEER $ORG
   VERSION=${3:-1.0}
   set -x
-  peer chaincode install -n mycc -v ${VERSION} -l ${LANGUAGE} -p ${CC_SRC_PATH} >&log.txt
+  peer chaincode install -n ${CC_NAME} -v ${CC_VERSION} -l ${LANGUAGE} -p ${CC_SRC_PATH} >&log.txt
   res=$?
   set +x
   cat log.txt
@@ -139,12 +139,12 @@ instantiateChaincode() {
   # the "-o" option
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
     set -x
-    peer chaincode instantiate -o orderer.academicrecords.com:7050 -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v ${VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.academicrecords.com:7050 -C $CHANNEL_NAME -n ${CC_NAME} -l ${LANGUAGE} -v ${CC_VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" >&log.txt
     res=$?
     set +x
   else
     set -x
-    peer chaincode instantiate -o orderer.academicrecords.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -l ${LANGUAGE} -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" >&log.txt
+    peer chaincode instantiate -o orderer.academicrecords.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} -l ${LANGUAGE} -v ${CC_VERSION} -c '{"Args":["init","a","100","b","200"]}' -P "AND ('Org1MSP.peer','Org2MSP.peer')" >&log.txt
     res=$?
     set +x
   fi
@@ -166,6 +166,22 @@ upgradeChaincode() {
   cat log.txt
   verifyResult $res "Chaincode upgrade on peer${PEER}.org${ORG} has failed"
   echo "===================== Chaincode is upgraded on peer${PEER}.org${ORG} on channel '$CHANNEL_NAME' ===================== "
+  echo
+}
+
+queryChaincode() {
+  PEER=$1
+  ORG=$2
+  setGlobals $PEER $ORG
+  VERSION=${3:-1.0}
+  set -x
+  peer chaincode query -C mychannel -n ${CC_NAME} -c '{"Args":["chaincodename","a"]}'
+  #peer chaincode install -n ${CC_NAME} -v ${VERSION} -l ${LANGUAGE} -p ${CC_SRC_PATH} >&log.txt
+  res=$?
+  set +x
+
+  verifyResult $res "Chaincode installation on peer${PEER}.org${ORG} has failed"
+  
   echo
 }
 

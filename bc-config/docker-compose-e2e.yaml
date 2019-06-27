@@ -22,10 +22,10 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-org1
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.academicrecords.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/0f6e15d3770b1bc092cc6c8630cf7fd46b2cc5b338465e448ba0798b70149d29_sk
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/5775e46c2c745db7646862a10c770774b4ce079bba2ae9644c18789408ddedcf_sk
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.academicrecords.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/0f6e15d3770b1bc092cc6c8630cf7fd46b2cc5b338465e448ba0798b70149d29_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.academicrecords.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/5775e46c2c745db7646862a10c770774b4ce079bba2ae9644c18789408ddedcf_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/org1.academicrecords.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca_peerOrg1
@@ -39,10 +39,10 @@ services:
       - FABRIC_CA_SERVER_CA_NAME=ca-org2
       - FABRIC_CA_SERVER_TLS_ENABLED=true
       - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.academicrecords.com-cert.pem
-      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/0b8901ad5f903092803b6b4bec432977dd923232037a9ef6b85894b41d64b38a_sk
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/69e4d06fe41e2323ffa025bbc92a2d26b3d887524da78ad779eb288dc3e93617_sk
     ports:
       - "8054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org2.academicrecords.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/0b8901ad5f903092803b6b4bec432977dd923232037a9ef6b85894b41d64b38a_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org2.academicrecords.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/69e4d06fe41e2323ffa025bbc92a2d26b3d887524da78ad779eb288dc3e93617_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/org2.academicrecords.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca_peerOrg2
