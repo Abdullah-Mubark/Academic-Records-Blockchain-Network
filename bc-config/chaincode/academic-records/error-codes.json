@@ -1,0 +1,8 @@
+{
+    "ERROR_CODE_101": 101,
+    "ERROR_DESC_101": "Nothing found against key",
+    "ERROR_CODE_102": 102,
+    "ERROR_DESC_102": "Invalid request",
+    "ERROR_CODE_103": 103,
+    "ERROR_DESC_103": "You do not have right to perform this action"
+}

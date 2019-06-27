@@ -1,0 +1,37 @@
+// Kill all containers
+docker kill $(docker ps -aq)
+docker rm $(docker ps -aq)
+// Enter cli container 
+docker exec -it cli bash
+// Remove the directory and then Copy to WSL
+sudo rm -r /home/abdullah/academic-records && sudo cp -r /mnt/c/users/Abdulah-Lab/academic-records ~
+// Restart cli container
+docker-compose -f docker-compose-cli.yaml restart cli
+------------------------------------------------------
+// Invoke chaincode
+
+peer chaincode invoke \
+-o orderer.academicrecords.com:7050 \
+-C mychannel \
+-n academicrecordscc \
+--tls \
+--cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/academicrecords.com/orderers/orderer.academicrecords.com/msp/tlscacerts/tlsca.academicrecords.com-cert.pem \
+-c '{"Args":["addAcademicRecord","a"]}' 
+--------
+peer chaincode invoke \
+-o orderer.academicrecords.com:7050 \
+-C mychannel \
+-n academicrecordscc \
+--tls \
+--cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/academicrecords.com/orderers/orderer.academicrecords.com/msp/tlscacerts/tlsca.academicrecords.com-cert.pem \
+-c '{"function":"addAcademicRecord","Args":[""]}'
+--------
+peer chaincode invoke \
+-o orderer.academicrecords.com:7050 \
+-C mychannel \
+-n academicrecordscc \
+--tls \
+--cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/academicrecords.com/orderers/orderer.academicrecords.com/msp/tlscacerts/tlsca.academicrecords.com-cert.pem \
+-c '{"function":"addAcademicRecord","Args":["id","SE","3.2","Abdulah","2014","2019"]}' 
+-------
+

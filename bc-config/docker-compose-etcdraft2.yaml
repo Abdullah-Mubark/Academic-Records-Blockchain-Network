@@ -1,0 +1,77 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+volumes:
+  orderer2.academicrecords.com:
+  orderer3.academicrecords.com:
+  orderer4.academicrecords.com:
+  orderer5.academicrecords.com:
+
+networks:
+  byfn:
+
+services:
+
+  orderer2.academicrecords.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    container_name: orderer2.academicrecords.com
+    networks:
+    - byfn
+    volumes:
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./crypto-config/ordererOrganizations/academicrecords.com/orderers/orderer2.academicrecords.com/msp:/var/hyperledger/orderer/msp
+        - ./crypto-config/ordererOrganizations/academicrecords.com/orderers/orderer2.academicrecords.com/tls/:/var/hyperledger/orderer/tls
+        - orderer2.academicrecords.com:/var/hyperledger/production/orderer
+    ports:
+    - 8050:7050
+
+  orderer3.academicrecords.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    container_name: orderer3.academicrecords.com
+    networks:
+    - byfn
+    volumes:
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./crypto-config/ordererOrganizations/academicrecords.com/orderers/orderer3.academicrecords.com/msp:/var/hyperledger/orderer/msp
+        - ./crypto-config/ordererOrganizations/academicrecords.com/orderers/orderer3.academicrecords.com/tls/:/var/hyperledger/orderer/tls
+        - orderer3.academicrecords.com:/var/hyperledger/production/orderer
+    ports:
+    - 9050:7050
+
+  orderer4.academicrecords.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    container_name: orderer4.academicrecords.com
+    networks:
+    - byfn
+    volumes:
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./crypto-config/ordererOrganizations/academicrecords.com/orderers/orderer4.academicrecords.com/msp:/var/hyperledger/orderer/msp
+        - ./crypto-config/ordererOrganizations/academicrecords.com/orderers/orderer4.academicrecords.com/tls/:/var/hyperledger/orderer/tls
+        - orderer4.academicrecords.com:/var/hyperledger/production/orderer
+    ports:
+    - 10050:7050
+
+  orderer5.academicrecords.com:
+    extends:
+      file: base/peer-base.yaml
+      service: orderer-base
+    container_name: orderer5.academicrecords.com
+    networks:
+    - byfn
+    volumes:
+        - ./channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ./crypto-config/ordererOrganizations/academicrecords.com/orderers/orderer5.academicrecords.com/msp:/var/hyperledger/orderer/msp
+        - ./crypto-config/ordererOrganizations/academicrecords.com/orderers/orderer5.academicrecords.com/tls/:/var/hyperledger/orderer/tls
+        - orderer5.academicrecords.com:/var/hyperledger/production/orderer
+    ports:
+    - 11050:7050

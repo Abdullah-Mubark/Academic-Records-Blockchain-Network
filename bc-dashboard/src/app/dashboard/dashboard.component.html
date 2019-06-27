@@ -1,0 +1,279 @@
+<div class="container-fluid">
+    <!-- Search bar start -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Search Records</h4>
+                    <p class="category">By National Id</p>
+                </div>
+                <div class="content">
+                    <!-- Input-ID Start -->
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-12 col-lg-3">
+                            <form class="form-search" [formGroup]="SearchForm" (ngSubmit)="onSubmit()">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="ID or Iqama"
+                                        formControlName="Id">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-search"
+                                            [disabled]="SearchForm.invalid">Search</button>
+                                    </span>
+                                </div>
+                                <p *ngIf="SearchForm.invalid && (SearchForm.dirty && SearchForm.touched)"
+                                    class="alert alert-danger">
+                                    Please enter a valid ID
+                                </p>
+                            </form>
+                        </div>
+                        <!-- Input-ID End -->
+                    </div>
+                    <div class="footer">
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search bar end -->
+    <hr>
+    <!-- Student Info-Start -->
+    <div class="row" *ngIf="Student != null">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Student's Information</h4>
+                </div>
+                <div class="content">
+                    <p><b>Full Name:</b> {{getStudentFullName()}}</p>
+                    <p><b>ID:</b> {{Student.id}}</p>
+                    <p><b>Gender:</b> {{Student.gender === 0 ? "Male" : "Female"}}</p>
+                    <p><b>Birth Date:</b> {{Student.birthDate  | date}}</p>
+                    <div class="footer">
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Student Info-End -->
+    <hr *ngIf="Student != null">
+    <!-- Records Display List-Start -->
+    <div class="row" *ngFor="let Record of RecordsList; let i = index ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">{{Record.degree}}</h4>
+                    <p class="category">{{Record.issuer.issuerName}}</p>
+                </div>
+                <div class="content">
+                    <p><b>Student ID:</b> {{Record.studentId}}</p>
+                    <p><b>GPA:</b> {{Record.gpa}}</p>
+                    <p><b>Enrollment Date:</b> {{Record.enrollmentDate | date}}</p>
+                    <p><b>Graduation Date:</b> {{Record.graduationDate  | date}}</p>
+                    <!-- <button *ngIf="Record.courses.length != 0" id="{{'Table-Button:Record#' + i}}" (click)="ToggleList(i)"><b>Show Courses:</b></button> -->
+                    <!-- Table for courses - Start -->
+                    <div class="table-responsive" *ngIf="Record.courses.length != 0"> 
+                        <table class="table" id="{{'Courses-Table:Record#' + i}}">
+                            <thead>
+                                <tr>
+                                    <th><b>Course Name</b></th>
+                                    <th><b>Course Code</b></th>
+                                    <th><b>Course Credit</b></th>
+                                    <th><b>Course Grade</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let course of Record.courses">
+                                    <td>{{course.courseName}}</td>
+                                    <td>{{course.courseCode}}</td>
+                                    <td>{{course.courseHours}}</td>
+                                    <td>{{course.courseGrade}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Table for courses - End -->
+                    <div class="footer">
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Records Display List-End -->
+
+    <!-- <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-warning text-center">
+                                    <i class="ti-server"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Capacity</p>
+                                    105GB
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-reload"></i> Updated now
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-success text-center">
+                                    <i class="ti-wallet"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Revenue</p>
+                                    $1,345
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-calendar"></i> Last day
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-danger text-center">
+                                    <i class="ti-pulse"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Errors</p>
+                                    23
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-timer"></i> In the last hour
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-info text-center">
+                                    <i class="ti-twitter-alt"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Followers</p>
+                                    +45
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-reload"></i> Updated now
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Users Behavior</h4>
+                        <p class="category">24 Hours performance</p>
+                    </div>
+                    <div class="content">
+                        <div id="chartHours" class="ct-chart"></div>
+                        <div class="footer">
+                            <div class="chart-legend">
+                                <i class="fa fa-circle text-info"></i> Open
+                                <i class="fa fa-circle text-danger"></i> Click
+                                <i class="fa fa-circle text-warning"></i> Click Second Time
+                            </div>
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-reload"></i> Updated 3 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Email Statistics</h4>
+                        <p class="category">Last Campaign Performance</p>
+                    </div>
+                    <div class="content">
+                        <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+                        <div class="footer">
+                            <div class="chart-legend">
+                                <i class="fa fa-circle text-info"></i> Open
+                                <i class="fa fa-circle text-danger"></i> Bounce
+                                <i class="fa fa-circle text-warning"></i> Unsubscribe
+                            </div>
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-timer"></i> Campaign sent 2 days ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="header">
+                        <h4 class="title">2015 Sales</h4>
+                        <p class="category">All products including Taxes</p>
+                    </div>
+                    <div class="content">
+                        <div id="chartActivity" class="ct-chart"></div>
+
+                        <div class="footer">
+                            <div class="chart-legend">
+                                <i class="fa fa-circle text-info"></i> Tesla Model S
+                                <i class="fa fa-circle text-warning"></i> BMW 5 Series
+                            </div>
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-check"></i> Data information certified
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div> -->
+</div>

@@ -1,0 +1,5 @@
+bc-dashboard/node_modules
+bc-chaincode/academic-records/node_modules
+bc-config/crypto-config
+bc-config/channel-artifacts
+bin/
