@@ -1,0 +1,116 @@
+{
+  "network-configs": {
+    "network-1": {
+      "version": "1.0",
+      "clients": {
+        "client-1": {
+          "tlsEnable": true,
+          "organization": "Org1MSP",
+          "channel": "mychannel",
+          "credentialStore": {
+            "path": "./tmp/credentialStore_RM/credential",
+            "cryptoStore": {
+              "path": "./tmp/credentialStore_RM/crypto"
+            }
+          }
+        }
+      },
+      "channels": {
+        "mychannel": {
+          "peers": {
+            "peer0.rm.academicrecords.com": {}
+          },
+          "connection": {
+            "timeout": {
+              "peer": {
+                "endorser": "6000",
+                "eventHub": "6000",
+                "eventReg": "6000"
+              }
+            }
+          }
+        }
+      },
+      "organizations": {
+        "Org1MSP": {
+          "mspid": "Org1MSP",
+          "fullpath": false,
+          "adminPrivateKey": {
+            "path": "/root/blockchain/network/rm-bc-config/crypto-config/peerOrganizations/rm.academicrecords.com/users/Admin@rm.academicrecords.com/msp/keystore"
+          },
+          "signedCert": {
+            "path": "/root/blockchain/network/rm-bc-config/crypto-config/peerOrganizations/rm.academicrecords.com/users/Admin@rm.academicrecords.com/msp/signcerts"
+          }
+        },
+        "CDMSP": {
+          "mspid": "CDMSP",
+          "adminPrivateKey": {
+            "path": "/root/blockchain/network/rm-bc-config/crypto-config/peerOrganizations/cd.academicrecords.com/users/Admin@cd.academicrecords.com/msp/keystore"
+          }
+        },
+        "SFDAMSP": {
+          "mspid": "SFDAMSP",
+          "adminPrivateKey": {
+            "path": "/root/blockchain/network/rm-bc-config/crypto-config/peerOrganizations/sfda.academicrecords.com/users/Admin@sfda.academicrecords.com/msp/keystore"
+          }
+        },
+        "REG1MSP": {
+          "mspid": "REG1MSP",
+          "adminPrivateKey": {
+            "path": "/root/blockchain/network/rm-bc-config/crypto-config/peerOrganizations/reg1.academicrecords.com/users/Admin@reg1.academicrecords.com/msp/keystore"
+          }
+        },
+        "OrdererMSP": {
+          "mspid": "OrdererMSP",
+          "adminPrivateKey": {
+            "path": "/root/blockchain/network/rm-bc-config/crypto-config/ordererOrganizations/academicrecords.com/users/Admin@academicrecords.com/msp/keystore"
+          }
+        }
+      },
+      "peers": {
+        "peer0.rm.academicrecords.com": {
+          "tlsCACerts": {
+            "path": "/root/blockchain/network/rm-bc-config/crypto-config/peerOrganizations/rm.academicrecords.com/peers/peer0.rm.academicrecords.com/tls/ca.crt"
+          },
+          "url": "grpcs://10.120.32.14:7051",
+          "eventUrl": "grpcs://10.120.32.14:7053",
+          "grpcOptions": {
+            "ssl-target-name-override": "peer0.rm.academicrecords.com"
+          }
+        },
+        "peer1.rm.academicrecords.com": {
+          "url": "grpcs://10.120.32.14:8051"
+        },
+        "peer0.cd.academicrecords.com": {
+          "url": "grpcs://10.120.32.18:9051"
+        },
+        "peer1.cd.academicrecords.com": {
+          "url": "grpcs://10.120.32.18:10051"
+        }
+
+        ,
+        "peer0.sfda.academicrecords.com": {
+          "url": "grpcs://10.120.32.21:11051"
+        },
+        "peer1.sfda.academicrecords.com": {
+          "url": "grpcs://10.120.32.21:12051"
+        },
+        "peer0.reg1.academicrecords.com": {
+          "url": "grpcs://10.120.32.24:13051"
+        },
+        "peer1.reg1.academicrecords.com": {
+          "url": "grpcs://10.120.32.24:14051"
+        }
+
+      },
+      "orderers": {
+        "orderer.academicrecords.com": {
+          "url": "grpcs://10.120.32.28:7050"
+        }
+      }
+    },
+    "network-2": {}
+  },
+  "configtxgenToolPath": "/root/blockchain/network/bin",
+  "license": "Apache-2.0"
+}

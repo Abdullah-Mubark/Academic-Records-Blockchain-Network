@@ -1,5 +1,17 @@
+// bc-dashboard ignore
 bc-dashboard/node_modules
+
+// bc-chaincode ignore
 bc-chaincode/academic-records/node_modules
+
+// bc-config ignore
 bc-config/crypto-config
 bc-config/channel-artifacts
+
+// bc-explorer ignore
+bc-explorer/node_modules
+bc-explorer/app/test/node_modules
+bc-explorer/client/node_modules
+
+// others ..
 bin/

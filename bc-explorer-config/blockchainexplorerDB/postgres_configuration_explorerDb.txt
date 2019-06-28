@@ -1,0 +1,19 @@
+sudo yum update -y
+sudo yum install git -y
+
+-----------------------------------------------Create the database--------------------------------------------------------------------
+Clone the Git Repo
+
+cd rm-explorer-config
+
+cp docker-compose /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+cd blockchainexplorerDB
+
+chmod +x script.sh
+./script.sh
+
+---------------------------------------Run the psql command from the postgres user account---------------------------------------------
+docker ps
+docker exec -it <container_id> bash

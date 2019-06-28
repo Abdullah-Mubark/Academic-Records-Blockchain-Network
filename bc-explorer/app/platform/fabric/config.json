@@ -1,0 +1,83 @@
+{
+  "network-configs": {
+    "network-1": {
+      "version": "1.0",
+      "clients": {
+        "client-1": {
+          "tlsEnable": true,
+          "organization": "Org1MSP",
+          "channel": "mychannel",
+          "credentialStore": {
+            "path": "./tmp/credentialStore_org1/credential",
+            "cryptoStore": {
+              "path": "./tmp/credentialStore_org1/crypto"
+            }
+          }
+        }
+      },
+      "channels": {
+        "mychannel": {
+          "peers": {
+            "peer0.org1.academicrecords.com": {}
+          },
+          "connection": {
+            "timeout": {
+              "peer": {
+                "endorser": "6000",
+                "eventHub": "6000",
+                "eventReg": "6000"
+              }
+            }
+          }
+        }
+      },
+      "organizations": {
+        "Org1MSP": {
+          "mspid": "Org1MSP",
+          "fullpath": false,
+          "adminPrivateKey": {
+            "path": "/root/blockchain-explorer/crypto-config/peerOrganizations/org1.academicrecords.com/users/Admin@org1.academicrecords.com/msp/keystore"
+          },
+          "signedCert": {
+            "path": "/root/blockchain-explorer/crypto-config/peerOrganizations/org1.academicrecords.com/users/Admin@org1.academicrecords.com/msp/signcerts"
+          }
+        },
+        "Org2MSP": {
+          "mspid": "Org2MSP",
+          "adminPrivateKey": {
+            "path": "/root/blockchain-explorer/crypto-config/peerOrganizations/org2.academicrecords.com/users/Admin@org2.academicrecords.com/msp/keystore"
+          }
+        }
+      },
+      "peers": {
+        "peer0.org1.academicrecords.com": {
+          "tlsCACerts": {
+            "path": "/root/blockchain-explorer/crypto-config/peerOrganizations/org1.academicrecords.com/peers/peer0.org1.academicrecords.com/tls/ca.crt"
+          },
+          "url": "grpcs://10.120.32.34:7051",
+          "eventUrl": "grpcs://10.120.32.34:7053",
+          "grpcOptions": {
+            "ssl-target-name-override": "peer0.org1.academicrecords.com"
+          }
+        },
+        "peer1.org1.academicrecords.com": {
+          "url": "grpcs://10.120.32.34:8051"
+        },
+        "peer0.org2.academicrecords.com": {
+          "url": "grpcs://10.120.32.34:9051"
+        },
+        "peer1.org2.academicrecords.com": {
+          "url": "grpcs://10.120.32.34:10051"
+        }
+      },
+      "orderers": {
+        "orderer.academicrecords.com": {
+          "url": "grpcs://10.120.32.34:7050"
+        }
+      }
+    },
+    "network-2": {}
+  },
+  "configtxgenToolPath": "/root/bc1_2/bin",
+  "license": "Apache-2.0"
+}
