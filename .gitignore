@@ -5,8 +5,10 @@ bc-dashboard/node_modules
 bc-chaincode/academic-records/node_modules
 
 // bc-config ignore
+bc-config/docker-compose-e2e.yaml
 bc-config/crypto-config
-bc-config/channel-artifacts
+bc-config/channel-artifacts/*
+!bc-config/channel-artifacts/.gitkeep
 
 // bc-explorer ignore
 bc-explorer/node_modules
